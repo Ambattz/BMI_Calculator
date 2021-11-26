@@ -1,15 +1,16 @@
 {
-  "name": "calculator",
+  "name": "bmi_calculator",
   "version": "1.0.0",
-  "description": "Simple Calculator web application using nodejs.",
-  "main": "calculator.js",
+  "description": "Simple BMI Calculator web application using nodejs.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon calculator.js"
+    "start": "nodemon server.js"
   },
   "author": "Ambattz",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
   }
 }
