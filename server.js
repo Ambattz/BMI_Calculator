@@ -1,22 +1,28 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-var path = require("path");
+const path = require("path");
+const ejs = require("ejs");
+
+const port = 3000;
+const data = {
+  weight: Number,
+};
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname)));
-const port = 3000;
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+app.route("/").get((req, res) => {
+  //console.log(req);
+  res.render("partials/signin");
 });
 
-app.post("/", (req, res) => {
-  var h = req.body.height / 100;
-  var w = req.body.weight;
-  var bmi = "BMI = " + (w / Math.pow(h, 2)).toFixed(2);
-  res.send(bmi);
-});
-
+// if(process.env.PORT === null || process.env.PORT === " ") {
+//   port = 3000;
+// } else {
+//   port = process.env.PORT;
+// }
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`BMI app listening at http://localhost:${port}`);
 });

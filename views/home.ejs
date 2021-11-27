@@ -1,0 +1,38 @@
+  <%- include('partials/header.ejs'); -%>
+
+  
+    <form
+      class="row gy-2 gx-3 align-items-center d-flex justify-content-center" action="/" method="post"
+    >
+      <div class="col-auto">
+        <label class="visually-hidden" for="autoSizingInput">height</label>
+        <input
+        name="height"
+          type="text"
+          class="form-control"
+          id="autoSizingInput"
+          placeholder="Your height in Centimetres"
+        />
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="autoSizingInputGroup">weight</label>
+        <div class="input-group">
+          <input
+          name="weight"
+            type="text"
+            class="form-control"
+            id="autoSizingInputGroup"
+            placeholder="Your weight in kiograms"
+          />
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Calculate BMI</button>
+      </div>
+    </form>
+    <div  id="result">
+    </div>
+    </div>
+    </div>
+
+    <%- include('partials/footer.ejs'); -%>
