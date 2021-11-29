@@ -7,7 +7,7 @@ body {
   background-color: #03506f;
   border-radius: 50px;
   width: 100%;
-  max-width: 330px;
+  max-width: 400px;
   padding: 15px;
   margin: auto;
 }
@@ -44,6 +44,9 @@ body {
   color: #03506f;
   border-color: blanchedalmond;
   border-width: 3px;
+}
+.btn-primary:hover {
+  border-color: blanchedalmond;
 }
 .signup {
   margin-top: 10px;
