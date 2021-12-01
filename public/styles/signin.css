@@ -3,6 +3,10 @@ body {
   height: 100%;
 }
 
+.head1 {
+  color: blanchedalmond;
+}
+
 .form-signin {
   background-color: #03506f;
   border-radius: 50px;
@@ -12,9 +16,6 @@ body {
   margin: auto;
 }
 
-.head {
-  color: blanchedalmond;
-}
 .text-muted {
   color: blanchedalmond !important;
 }
@@ -39,19 +40,33 @@ body {
   border-top-right-radius: 0;
 }
 
+.signup {
+  margin-top: 10px;
+}
+
 .btn-primary {
   background-color: blanchedalmond;
   color: #03506f;
   border-color: blanchedalmond;
   border-width: 3px;
 }
-.btn-primary:hover {
-  border-color: blanchedalmond;
-}
-.signup {
-  margin-top: 10px;
-}
+
 .btn-primary:hover {
   background-color: #03506f;
+  border-color: blanchedalmond;
   color: blanchedalmond;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
 }

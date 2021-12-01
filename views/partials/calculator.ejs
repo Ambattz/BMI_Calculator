@@ -1,0 +1,24 @@
+<div class="inputbox">
+    <form class="row gy-2 gx-3 align-items-center d-flex justify-content-center" id="form1" action="/output"
+        method="post">
+
+        <div class="col-auto">
+            <label class="visually-hidden" for="autoSizingInput">weigth</label>
+            <input name="weigth" type="text" class="form-control" id="autoSizingInput" autocomplete="off"
+                placeholder="Your weight in kiograms" />
+        </div>
+        <div class="col-auto">
+            <label class="visually-hidden" for="autoSizingInputGroup">heigth</label>
+            <input name="heigth" type="text" class="form-control" id="autoSizingInput" autocomplete="off"
+                placeholder="Your height in Centimetres" />
+        </div>
+
+    </form>
+    <form action="/logout" method="get" id="form2">
+    </form>
+
+    <div class="col-auto buttons">
+        <button type="submit" class="w-100 btn btn-lg btn-primary Calculate" form="form1">BMI</button>
+        <button class="w-100 btn btn-lg btn-primary logout" form="form2" type="submit">Logout</button>
+    </div>
+</div>

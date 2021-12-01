@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const path = require("path");
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -38,6 +39,7 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
+userSchema.plugin(mongoosePaginate);
 userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
@@ -46,7 +48,7 @@ setInterval(function () {
   User.count({}, function (err, count) {
     usercount = count;
   });
-}, 500);
+}, 0);
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
