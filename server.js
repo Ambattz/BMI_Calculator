@@ -7,6 +7,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 const session = require("cookie-session");
+const MongoStore = require("connect-mongo");
+
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -21,8 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SECRET,
+    store: MongoStore.create(({ mongoUrl:process.env.LINK})),
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
   })
 );
 
