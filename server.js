@@ -12,7 +12,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 var usercount;
 var data;
-const port = 3000;
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -30,9 +29,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userBMIDB", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://ambattz:db123@userbmidb.clccn.mongodb.net/userDB?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const dataSchema = new mongoose.Schema({
   username: String,
@@ -176,12 +179,11 @@ app
       }
     });
   });
+let port = process.env.PORT;
+if (port === null || port === "") {
+  port = 3000;
+}
 
-//if (process.env.PORT === null || process.env.PORT === "") {
-//   port = 3000;
-// } else {
-//   port = process.env.PORT;
-// }
 app.listen(port, () => {
   console.log(`BMI app listening at http://localhost:${port}`);
 });
