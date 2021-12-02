@@ -29,13 +29,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(
-  "mongodb+srv://ambattz:db123@userbmidb.clccn.mongodb.net/userDB?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.LINK, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const dataSchema = new mongoose.Schema({
   username: String,
