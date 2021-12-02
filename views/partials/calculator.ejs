@@ -2,15 +2,15 @@
     <form class="row gy-2 gx-3 align-items-center d-flex justify-content-center" id="form1" action="/output"
         method="post">
 
-        <div class="col-auto">
+        <div>
             <label class="visually-hidden" for="autoSizingInput">weigth</label>
-            <input name="weigth" type="text" class="form-control" id="autoSizingInput" autocomplete="off"
-                placeholder="Your weight in kiograms" />
+            <input name="weigth" type="number" min="3" max="635" step=".1" class="form-control" id="autoSizingInput"
+                autocomplete="off" placeholder="Your weight in kilograms" required />
         </div>
-        <div class="col-auto">
+        <div>
             <label class="visually-hidden" for="autoSizingInputGroup">heigth</label>
-            <input name="heigth" type="text" class="form-control" id="autoSizingInput" autocomplete="off"
-                placeholder="Your height in Centimetres" />
+            <input name="heigth" type="number" min="54" max="254" step=".1" class="form-control" id="autoSizingInput"
+                autocomplete="off" placeholder="Your height in Centimetres" required />
         </div>
 
     </form>

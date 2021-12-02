@@ -11,9 +11,9 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 var usercount;
+var data;
 const port = 3000;
 const app = express();
-const udata = [];
 
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
@@ -34,6 +34,20 @@ mongoose.connect("mongodb://localhost:27017/userBMIDB", {
   useNewUrlParser: true,
 });
 
+const dataSchema = new mongoose.Schema({
+  username: String,
+  heigth: {
+    type: Number,
+  },
+  weigth: {
+    type: Number,
+  },
+  bmi: String,
+  cvalue: String,
+  ivalue: String,
+  date: String,
+});
+
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
@@ -43,6 +57,7 @@ userSchema.plugin(mongoosePaginate);
 userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
+const UserData = new mongoose.model("UserData", dataSchema);
 
 setInterval(function () {
   User.count({}, function (err, count) {
@@ -78,20 +93,31 @@ app.route("/output").post((req, res) => {
     }
   }
 
-  const userdata = {
+  const data = new UserData({
+    username: req.user.username,
     heigth: he,
     weigth: we,
     bmi: bmi,
     cvalue: colour,
     ivalue: im,
     date: new Date().toLocaleString(),
-  };
-  udata.push(userdata);
+  });
+  data.save();
   res.redirect("/bmicalc");
 });
 app.route("/bmicalc").get((req, res) => {
   if (req.isAuthenticated()) {
-    res.render("bmicalc", { count: usercount, userdata: udata });
+    UserData.find({ username: req.user.username }, function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("bmicalc", {
+          count: usercount,
+          username: req.user.username,
+          userdata: docs,
+        });
+      }
+    });
   } else {
     res.redirect("/");
   }
@@ -125,7 +151,6 @@ app
                   if (err) {
                     return next(err);
                   }
-
                   return res.redirect("/bmicalc");
                 });
               })(req, res, next);
@@ -134,7 +159,6 @@ app
         );
       } else {
         passport.authenticate("local", function (err, user, info) {
-          console.log(info);
           if (err) {
             return next(err);
           }

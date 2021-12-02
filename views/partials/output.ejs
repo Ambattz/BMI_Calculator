@@ -13,28 +13,28 @@
         </thead>
         <% var index=Object.keys(userdata).length;%>
 
-            <% userdata.slice().reverse().forEach((udata)=>{ %>
+            <% userdata.slice().reverse().forEach((data)=>{ %>
 
                 <tr class="bg-primary ">
                     <tbody>
-                        <tr class=<%=udata.cvalue%>>
+                        <tr class=<%=data.cvalue%>>
                             <th scope="row" style="text-align: center;">
                                 <%=index%>
                             </th>
                             <td style="padding-left:10px;">
-                                <%=udata.date%>
+                                <%=data.date%>
                             </td>
                             <td style="padding-left:10px;">
-                                <%=udata.weigth%>
+                                <%=data.weigth%>
                             </td>
                             <td style="padding-left:10px;">
-                                <%=udata.heigth%>
+                                <%=data.heigth%>
                             </td>
                             <td style="text-align: center;">
-                                <%=udata.bmi%>
+                                <%=data.bmi%>
                             </td>
                             <td style="text-align: center;">
-                                <img src="images\<%=udata.ivalue%>.png" width="30" height="30" alt="Responsive image">
+                                <img src="images\<%=data.ivalue%>.png" width="30" height="30" alt="Responsive image">
                             </td>
                         </tr>
                         <% index=index-1;%>
