@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const path = require("path");
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
-const session = require("express-session");
+const session = require("cookie-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -169,7 +169,6 @@ app
             if (err) {
               return next(err);
             }
-
             return res.redirect("/bmicalc");
           });
         })(req, res, next);
