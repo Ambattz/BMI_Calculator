@@ -9,9 +9,6 @@
   },
   "author": "Ambattz",
   "license": "ISC",
-  "engines": {
-    "node": "16.13.0"
-  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -24,5 +21,9 @@
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0"
+  },
+  "engines": {
+    "node": "16.13.0"
   }
+
 }
