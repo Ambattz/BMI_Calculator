@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SECRET,
-    store: MongoStore.create(({ mongoUrl:process.env.LINK})),
+    store: MongoStore.create({ mongoUrl: process.env.LINK }),
     resave: false,
     saveUninitialized: true,
   })
@@ -154,7 +154,12 @@ app
                   if (err) {
                     return next(err);
                   }
-                  return res.redirect("/bmicalc");
+                  // return res.redirect("/bmicalc");
+                  res.render("bmicalc", {
+                    count: usercount,
+                    username: req.user.username,
+                    userdata: docs,
+                  });
                 });
               })(req, res, next);
             }
