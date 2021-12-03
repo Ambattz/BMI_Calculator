@@ -86,25 +86,36 @@ app
   })
 
   .post((req, res, next) => {
+    console.log("User is "+req.body.username);
     User.findOne({ username: req.body.username }, (err, docs) => {
+      console.log("Inside findone");
       if (err) {
         console.log(err);
         res.render("error");
       } else if (docs === null) {
+        // const user = new User({
+        //   username: req.body.username,
+        //   password: req.body.password,
+        // });
+
+        // user.save();
         User.register(
           { username: req.body.username },
           req.body.password,
           (err, user) => {
+            console.log("Inside register");
             if (err) {
               console.log(err);
               res.render("error");
             } else {
+              console.log("Inside registered");
               passport.authenticate("local", function (err, user, info) {
                 req.logIn(user, function (err) {
                   if (err) {
                     res.render("error");
                     //return next(err);
                   }
+                  console.log("Inside authenticated");
                   return res.redirect("/bmicalc");
                 });
               })(req, res, next);
@@ -125,6 +136,7 @@ app
               res.render("error");
               //return next(err);
             }
+            console.log("Inside already exists");
             return res.redirect("/bmicalc");
           });
         })(req, res, next);
@@ -136,12 +148,15 @@ app
   .route("/bmicalc")
 
   .get((req, res) => {
+    console.log("Inside going to bmi");
     if (req.isAuthenticated()) {
+      console.log("Inside authenticated #2");
       Data.find({ username: req.user.username }, function (err, docs) {
         if (err) {
           console.log(err);
           res.render("error");
         } else {
+          console.log("Inside rendering soon");
           res.render("bmicalc", {
             count: usercount,
             username: req.user.username,
