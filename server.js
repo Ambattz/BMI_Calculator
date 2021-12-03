@@ -6,11 +6,22 @@ const ejs = require("ejs");
 const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
+var MongoDBStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 var usercount;
 const app = express();
+
+var store = new MongoDBStore({
+  uri: process.env.LOCALLINK || process.env.GLOBALLINK,
+  collection: "bmidb",
+});
+// Catch errors
+store.on("error", function (error) {
+  res.render("error");
+  console.log(error);
+});
 
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
@@ -28,9 +39,7 @@ app.use(
       httpOnly: false,
       maxAge: 1000 * 60 * 60 * 24 * 1, // 1 Day
     },
-    store: new (require("express-sessions"))({
-      storage: "mongodb",
-    }),
+    store: store,
     resave: true,
     saveUninitialized: true,
   })
@@ -128,14 +137,14 @@ app
 
   .get((req, res) => {
     if (req.isAuthenticated()) {
-      Data.find({ username: req.body.username }, function (err, docs) {
+      Data.find({ username: req.user.username }, function (err, docs) {
         if (err) {
           console.log(err);
           res.render("error");
         } else {
           res.render("bmicalc", {
             count: usercount,
-            username: req.body.username,
+            username: req.user.username,
             userdata: docs,
           });
         }
@@ -162,7 +171,7 @@ app
     var bmi = ((we / (he * he)) * 10000).toFixed(2);
     var colour, im;
 
-    () => {
+    (function () {
       if (bmi > 25) {
         colour = "bg-danger";
         im = 3;
@@ -176,10 +185,10 @@ app
         im = 1;
         return;
       }
-    };
+    })();
 
     const data = new Data({
-      username: req.body.username,
+      username: req.user.username,
       heigth: he,
       weigth: we,
       bmi: bmi,
@@ -196,4 +205,6 @@ let port = process.env.PORT; //heroku PORT
 if (port == null || port == "") {
   port = process.env.LOCALPORT; //LOCAL Port
 }
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});
