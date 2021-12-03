@@ -147,7 +147,12 @@ app
           (err, user) => {
             if (err) {
               console.log(err);
-              res.redirect("/");
+              // res.redirect("/");
+              res.render("bmicalc", {
+                count: usercount,
+                username: req.user.username,
+                userdata: docs,
+              });
             } else {
               passport.authenticate("local", function (err, user, info) {
                 req.logIn(user, function (err) {
